@@ -1,0 +1,14 @@
+Label
+StaticBody2D
+Area2D
+CollisionShape2D
+Timer
+Button
+CanvasLayer
+VisibleOnScreenNotifier2D
+Node
+Sprite2D
+RigidBody2D
+AnimatedSprite2D
+CharacterBody2D
+TextureRect

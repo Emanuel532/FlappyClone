@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxpm30orc3cgl"]
+
+[ext_resource type="Texture2D" uid="uid://ds2rofqji8yji" path="res://assets/bg.png" id="1_u7eji"]
+[ext_resource type="Script" path="res://main.gd" id="1_xx0wb"]
+[ext_resource type="PackedScene" uid="uid://6wp8h1ba88oj" path="res://pipes.tscn" id="2_30ymf"]
+[ext_resource type="PackedScene" uid="uid://ddy2khgu022b4" path="res://bird.tscn" id="2_i0lpr"]
+[ext_resource type="PackedScene" uid="uid://bd5eifu7syho0" path="res://ground.tscn" id="4_cr0iu"]
+[ext_resource type="PackedScene" uid="uid://c2i06hr5ma8ne" path="res://hud.tscn" id="6_vohjb"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_xx0wb")
+pipes_scene = ExtResource("2_30ymf")
+
+[node name="background" type="TextureRect" parent="."]
+offset_right = 866.0
+offset_bottom = 937.0
+texture = ExtResource("1_u7eji")
+expand_mode = 1
+
+[node name="bird" parent="." instance=ExtResource("2_i0lpr")]
+position = Vector2(133, 382)
+
+[node name="PipesGeneratorTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Ground" parent="." instance=ExtResource("4_cr0iu")]
+position = Vector2(521, 888)
+
+[node name="HUD" parent="." instance=ExtResource("6_vohjb")]
+
+[node name="ScoreTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="score_triggered_by_bird" from="bird" to="." method="_on_bird_score_triggered_by_bird"]
+[connection signal="something_hit" from="bird" to="." method="_on_bird_something_hit"]
+[connection signal="timeout" from="PipesGeneratorTimer" to="." method="_on_pipes_generator_timer_timeout"]
+[connection signal="timeout" from="PipesGeneratorTimer" to="Ground" method="_on_pipes_generator_timer_timeout"]
+[connection signal="game_started" from="HUD" to="." method="_on_hud_game_started"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

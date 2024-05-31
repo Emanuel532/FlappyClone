@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://6wp8h1ba88oj"]
+
+[ext_resource type="Script" path="res://pipes.gd" id="1_b46a4"]
+[ext_resource type="PackedScene" uid="uid://rtiw3iicxult" path="res://pipe.tscn" id="1_eadwm"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_lw0c1"]
+a = Vector2(-2, -191)
+b = Vector2(-2, 699)
+
+[node name="Pipes" type="Node" groups=["pipes"]]
+script = ExtResource("1_b46a4")
+
+[node name="ScorePipe6" type="Area2D" parent="."]
+position = Vector2(1080, 0)
+
+[node name="Pipe2" parent="." instance=ExtResource("1_eadwm")]
+position = Vector2(1083, 259)
+rotation = 3.14159
+
+[node name="Pipe" parent="." instance=ExtResource("1_eadwm")]
+position = Vector2(1083, 634)
+
+[node name="ScorePipe" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScorePipe"]
+position = Vector2(1084, 176)
+shape = SubResource("SegmentShape2D_lw0c1")
+debug_color = Color(0.986268, 0.305961, 0.580399, 1)
+
+[connection signal="area_entered" from="ScorePipe6" to="." method="_on_score_pipe_area_entered"]
+[connection signal="body_entered" from="ScorePipe6" to="." method="_on_score_pipe_body_entered"]
+[connection signal="exit_screen" from="Pipe" to="." method="_on_pipe_exit_screen"]
